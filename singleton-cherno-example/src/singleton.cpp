@@ -1,4 +1,4 @@
-#include "Singleton.h"
+#include "singleton.h"
 #include <iostream>
 
 /* it's private to this file */
