@@ -32,3 +32,37 @@ Install Command (Ubuntu/Debian):
 ```bash
 sudo apt update && sudo apt install build-essential ninja-build cmake
 ```
+
+## 🏗️ Build Instructions
+
+The commands below are executed from the **root of the repository**.
+
+### 1. Configure Workspace (Run Once)
+
+```bash
+# Windows (Visual Studio 2022 – MSVC)
+cmake --preset windows-msvc
+# Windows (MinGW – Debug)
+cmake --preset windows-mingw-debug
+# Linux (Ninja - Debug)
+cmake --preset linux-ninja-debug
+```
+
+### 2. Build Commands
+
+#### Build All (Debug)
+
+```bash
+# Windows (Visual Studio 2022 – MSVC)
+cmake --build --preset windows-msvc-debug
+# Windows (MinGW – Debug)
+cmake --build --preset windows-mingw-debug
+# Linux (Ninja - Debug)
+cmake --build --preset linux-ninja-debug
+```
+
+#### Build Specific Project
+
+```bash
+cmake --build --preset <preset> --target <target_name>
+```
