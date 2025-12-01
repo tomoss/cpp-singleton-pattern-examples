@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Singleton.h"
+#include "singleton.h"
 
 /*
 * Cherno example with static pointer 'global' variable

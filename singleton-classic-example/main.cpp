@@ -1,0 +1,19 @@
+#include <iostream>
+#include "singleton.h"
+
+/*
+* Example with static member variable
+* Static memory allocation
+* Eager initialization
+* Singleton is created before main() and destroyed after main() call
+* Thread-safety not guaranteed
+*/
+
+int main()
+{
+	std::cout << "--- main start ---" << std::endl;
+
+	Singleton::getInstance().func();
+
+	std::cout << "--- main end ---" << std::endl;
+}
