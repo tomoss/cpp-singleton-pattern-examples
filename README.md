@@ -66,3 +66,8 @@ cmake --build --preset linux-ninja-debug
 ```bash
 cmake --build --preset <preset> --target <target_name>
 ```
+Example:
+```bash
+cmake --build --preset linux-ninja-debug --target singleton-meyers-example
+
+```
