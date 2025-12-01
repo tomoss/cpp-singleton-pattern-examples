@@ -11,6 +11,7 @@ public:
     static void delInstance();
 
     void func();
+
 private:
     Singleton();
     ~Singleton();

@@ -12,9 +12,9 @@ public:
     }
 
     void func();
-    ~Singleton();
 
 private:
     Singleton();
+    ~Singleton();
     static Singleton instance; /* Declared static instance as member variable. */
 };

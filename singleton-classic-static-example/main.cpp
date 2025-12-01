@@ -2,7 +2,7 @@
 #include "singleton.h"
 
 /*
-* Example with static member variable
+* Example with STATIC MEMBER VARIABLE
 * Static memory allocation
 * Eager initialization
 * Singleton is created before main() and destroyed after main() call

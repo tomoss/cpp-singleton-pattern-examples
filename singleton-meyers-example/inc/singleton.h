@@ -11,8 +11,8 @@ public:
     }
 
     void func();
-    ~Singleton();
 
 private:
     Singleton();
+    ~Singleton();
 };

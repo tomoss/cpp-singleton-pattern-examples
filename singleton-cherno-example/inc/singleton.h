@@ -8,6 +8,7 @@ public:
     static Singleton& getInstance();
     static void delInstance();
     void func();
+
 private:
     Singleton();
     ~Singleton();

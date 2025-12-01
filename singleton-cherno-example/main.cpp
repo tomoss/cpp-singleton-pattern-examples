@@ -2,7 +2,7 @@
 #include "singleton.h"
 
 /*
-* Cherno example with static pointer 'global' variable
+* Example from Cherno with STATIC GLOBAL VARIABLE
 * Dynamic memory allocation
 * Lazy initialization
 * Singleton is created only after first call of getInstance() and destroyed by calling delInstance()

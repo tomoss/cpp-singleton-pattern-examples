@@ -2,7 +2,7 @@
 #include "singleton.h"
 
 /*
-* Example with static pointer member variable
+* Example with STATIC MEMBER VARIABLE
 * Dynamic memory allocation
 * Lazy initialization
 * Singleton is created only after first call of getInstance() and destroyed by calling delInstance()

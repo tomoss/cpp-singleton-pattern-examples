@@ -1,10 +1,10 @@
-#include "singleton.h"
 #include <iostream>
 #include <vector>
 #include <thread>
+#include "singleton.h"
 
 /*
-* Singleton with local static unique pointer
+* Example with STATIC LOCAL VARIABLE that is a SMART POINTER
 * Dynamic memory allocation
 * Lazy initialization
 * Singleton is created in the first call of getInstance() and destroyed automatically after main() call
