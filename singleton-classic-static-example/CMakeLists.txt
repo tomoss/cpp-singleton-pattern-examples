@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.21) 
-project(singleton-classic-example VERSION 0.1.0 LANGUAGES CXX)
+project(singleton-classic-static-example VERSION 0.1.0 LANGUAGES CXX)
 
 # -------------------------------------------------------------
 # Executable
 # -------------------------------------------------------------
-add_executable(singleton-classic-example
+add_executable(singleton-classic-static-example
     main.cpp
     src/singleton.cpp
 )
@@ -12,9 +12,9 @@ add_executable(singleton-classic-example
 # -------------------------------------------------------------
 # Compiler Features
 # -------------------------------------------------------------
-target_compile_features(singleton-classic-example PRIVATE cxx_std_17)
+target_compile_features(singleton-classic-static-example PRIVATE cxx_std_17)
 
-set_target_properties(singleton-classic-example PROPERTIES
+set_target_properties(singleton-classic-static-example PROPERTIES
     CXX_STANDARD_REQUIRED ON
     CXX_EXTENSIONS OFF
 )
@@ -23,6 +23,6 @@ set_target_properties(singleton-classic-example PROPERTIES
 # Include directories
 # -------------------------------------------------------------
 # PRIVATE means: Only this target needs 'inc' to build.
-target_include_directories(singleton-classic-example PRIVATE
+target_include_directories(singleton-classic-static-example PRIVATE
     inc
 )
