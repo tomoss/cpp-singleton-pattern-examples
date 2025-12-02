@@ -2,7 +2,9 @@
 
 A collection of minimal, self-contained C++ examples demonstrating multiple ways to implement the Singleton design pattern. The repository includes modern, thread-safe techniques (Meyers Singleton) and legacy aproaches (Raw Pointers, Double-Checked Locking) for comparison.
 
-## Prerequisites
+## 🔍 Overview
+
+## ⚙️ Prerequisites
 
 Before building, ensure you have the following installed:
 
@@ -10,22 +12,21 @@ Before building, ensure you have the following installed:
 
 * **CMake** (v3.20 or newer required for Presets)
 
-### Windows - Visual Studio MSVC (Preset: windows-msvc)
+### 🖥️ Windows - Visual Studio MSVC (Preset: windows-msvc)
 
 * **Visual Studio 2022**
-* **Workload Required:** Desktop development with C++
-* **Note:** The preset uses the Visual Studio 17 2022 generator.
+* **Workload Required: Desktop development with C++**
+* **Note: The preset uses the Visual Studio 17 2022 generator.**
 
-### Windows - MinGW (Preset: windows-mingw)
+### 🖥️ Windows - MinGW (Preset: windows-mingw)
 
 * **MinGW-w64 Toolchain**
-* **Make Tool: mingw32-make** (Included with most MinGW installers).
-* **Configuration:** The bin folder of your MinGW installation (e.g., C:\msys64\mingw64\bin) must be in your system PATH environment variable.
+* **Make Tool: mingw32-make (Included with most MinGW installers).**
+* **Configuration: The bin folder of your MinGW installation (e.g., C:\msys64\mingw64\bin) must be in your system PATH environment variable.**
 
-### Linux (Preset: linux-ninja)
+### 🐧 Linux (Preset: linux-ninja)
 
-* **C++ Compiler:** GCC or Clang (supporting C++17)
-
+* **C++ Compiler: GCC or Clang (supporting C++17)**
 * **Generator: Ninja Build System**
 
 Install Command (Ubuntu/Debian):
@@ -39,29 +40,45 @@ The commands below are executed from the **root of the repository**.
 
 ### 1. Configure Workspace (Run Once)
 
+#### 🖥️ Windows (MSVC)
+
 ```bash
-# Windows (Visual Studio 2022 – MSVC)
 cmake --preset windows-msvc
-# Windows (MinGW – Debug)
+```
+
+#### 🖥️ Windows (MinGW - Debug)
+
+```bash
 cmake --preset windows-mingw-debug
-# Linux (Ninja - Debug)
+```
+
+#### 🐧 Linux (Ninja - Debug)
+
+```bash
 cmake --preset linux-ninja-debug
 ```
 
-### 2. Build Commands
+### Build All (Debug)
 
-#### Build All (Debug)
+#### 🖥️ Windows (MSVC)
 
 ```bash
-# Windows (Visual Studio 2022 – MSVC)
 cmake --build --preset windows-msvc-debug
-# Windows (MinGW – Debug)
+```
+
+#### 🖥️ Windows (MinGW - Debug)
+
+```bash
 cmake --build --preset windows-mingw-debug
-# Linux (Ninja - Debug)
+```
+
+#### 🐧 Linux (Ninja - Debug)
+
+```bash
 cmake --build --preset linux-ninja-debug
 ```
 
-#### Build Specific Project
+### Build Specific Project
 
 ```bash
 cmake --build --preset <preset> --target <target_name>
@@ -71,3 +88,22 @@ Example:
 cmake --build --preset linux-ninja-debug --target singleton-meyers-example
 
 ```
+
+## 🏃 Running Examples
+
+### 🖥️ Windows (MSVC)
+```bash
+build/windows-msvc/singleton-meyers-example/Debug/singleton-meyers-example.exe
+```
+
+### 🖥️ Windows (MinGW)
+```bash
+build/windows-mingw-debug/singleton-meyers-example/singleton-meyers-example.exe
+```
+
+
+### 🐧 Linux
+```bash
+./build/linux-ninja-debug/singleton-meyers-example/singleton-meyers-example
+```
+
