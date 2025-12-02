@@ -29,10 +29,7 @@ Before building, ensure you have the following installed:
 * **C++ Compiler: GCC or Clang (supporting C++17)**
 * **Generator: Ninja Build System**
 
-* **Install Command (Ubuntu/Debian):**
-* **```bash
-sudo apt update && sudo apt install build-essential ninja-build cmake
-```**
+* **Install Command (Ubuntu/Debian):** (```bash sudo apt update && sudo apt install build-essential ninja-build cmake ```)
 
 ## 🏗️ Build Instructions
 
