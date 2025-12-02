@@ -4,6 +4,25 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 
 ## 🔍 Overview
 
+### singleton-meyers-example
+* Meyer’s Singleton - Example with STATIC LOCAL VARIABLE
+* Static memory allocation
+* Lazy initialization
+* Singleton is created only after first call of getInstance() and destroyed after main() call
+* Thread-safe - Thread safety is guaranteed since C++11. 
+* A function-local static variable is initialized exactly once, even in a multi-threaded environment.
+* This is the best and simplest way to implement a singleton in C++11 and later.
+
+### singleton-cherno-example
+
+### singleton-classic-static-example
+
+### singleton-classic-dynamic-example
+
+### singleton-dclp-example
+
+### singleton-smart-pointer-example
+
 ## ⚙️ Prerequisites
 
 Before building, ensure you have the following installed:
@@ -29,7 +48,7 @@ Before building, ensure you have the following installed:
 * **C++ Compiler: GCC or Clang (supporting C++17)**
 * **Generator: Ninja Build System**
 
-* **Install Command (Ubuntu/Debian):** (```bash sudo apt update && sudo apt install build-essential ninja-build cmake ```)
+* **Install Command (Ubuntu/Debian):** ```bash sudo apt update && sudo apt install build-essential ninja-build cmake ```
 
 ## 🏗️ Build Instructions
 
