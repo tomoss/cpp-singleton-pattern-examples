@@ -4,24 +4,61 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 
 ## 🔍 Overview
 
-### singleton-meyers-example
-* Meyer’s Singleton - Example with STATIC LOCAL VARIABLE
-* Static memory allocation
-* Lazy initialization
-* Singleton is created only after first call of getInstance() and destroyed after main() call
-* Thread-safe - Thread safety is guaranteed since C++11. 
+### ⭐ singleton-meyers-example
+* Meyers Singleton — the simplest and safest modern C++ singleton implementation.
+* 🧩 Static local variable
+* 💾 Static memory allocation
+* ⏳ Lazy initialization
+* 🧼 Automatic cleanup (destroyed after main() exits)
+* 🔒 Thread-safe since C++11
 * A function-local static variable is initialized exactly once, even in a multi-threaded environment.
-* This is the best and simplest way to implement a singleton in C++11 and later.
+* 🟢 This is the best and simplest way to implement a singleton in C++11 and later.
 
-### singleton-cherno-example
+### ⭐ singleton-cherno-example
+* Cherno-style Singleton - https://youtu.be/IMZMLvIwa-k?si=Q__9r--DOre6jahY
+* 🧩 Static global variable
+* 💾 Dynamic memory allocation
+* ⏳ Lazy initialization
+* 🧹 Manual destruction required (via delInstance())
+* ⚠️ Not thread-safe
+* 🔴 Suitable only for single-threaded
 
-### singleton-classic-static-example
+### ⭐ singleton-classic-static-example
+* Singleton with a static member instance — created eagerly at program startup.
+* 🧩 Static member variable
+* 💾 Static memory allocation
+* ⚡ Eager initialization (constructed before main() starts)
+* 🧼 Automatic destruction after main() exits
+* ⚠️ Not thread-safe
+* 🔴 Can suffer from the static initialization order fiasco
 
-### singleton-classic-dynamic-example
+### ⭐ singleton-classic-dynamic-example
+* Singleton with a static member pointer — dynamically allocated on first use.
+* 🧩 Static member pointer
+* 💾 Dynamic memory allocation
+* ⏳ Lazy initialization (created only on first call to getInstance())
+* 🧹 Requires manual destruction via delInstance()
+* ⚠️ Not thread-safe
+* 🔴 Not recommended for multi-threaded applications
 
-### singleton-dclp-example
+### ⭐ singleton-dclp-example
+* Double-Checked Locking Pattern (DCLP) — classic but unsafe lazy-initialization pattern.
+* 🧩 Static member pointer
+* 💾 Dynamic memory allocation
+* ⏳ Lazy initialization
+* 🧹 Destroyed manually via delInstance()
+* ⚠️ Not thread-safe in C++ — suffers from data races and reordering issues
+* ❌ DCLP is unreliable because multiple threads may observe a partially constructed object
+* ⛔ Obsoleted by C++11 (local static initialization is the correct modern solution)
+* Reference: https://www.aristeia.com/Papers/DDJ_Jul_Aug_2004
 
-### singleton-smart-pointer-example
+### ⭐ singleton-smart-pointer-example
+* Singleton using a static local smart pointer
+* 🧩 Static local variable
+* 💾 Dynamic memory allocation
+* ⏳ Lazy initialization (instance created on first getInstance() call)
+* 🧼 Automatically destroyed after main() exits
+* 🔒 Thread-safe initialization (C++11+)
 
 ## ⚙️ Prerequisites
 
