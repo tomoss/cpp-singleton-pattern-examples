@@ -50,7 +50,7 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 * ⚠️ Not thread-safe in C++ — suffers from data races and reordering issues
 * ❌ DCLP is unreliable because multiple threads may observe a partially constructed object
 * ⛔ Obsoleted by C++11 (local static initialization is the correct modern solution)
-* Reference: https://www.aristeia.com/Papers/DDJ_Jul_Aug_2004
+* Reference: [https://www.aristeia.com/Papers/DDJ_Jul_Aug_2004](https://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf)
 
 ### ⭐ singleton-smart-pointer-example
 * Singleton using a static local smart pointer
