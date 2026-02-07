@@ -85,7 +85,6 @@ Before building, ensure you have the following installed:
 
 * **C++ Compiler: GCC or Clang (supporting C++11)**
 * **Generator: Ninja**
-
 * **Install Command (Ubuntu/Debian):** ```bash sudo apt update && sudo apt install build-essential ninja-build cmake ```
 
 ## 🏗️ Build Instructions
