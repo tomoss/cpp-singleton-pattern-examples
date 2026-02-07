@@ -1,4 +1,4 @@
-#include "singleton.h"
+#include "../inc/singleton.h"
 #include <iostream>
 
 /* it's private to this file */
@@ -6,13 +6,13 @@ static Singleton* instance = nullptr;
 
 Singleton& Singleton::getInstance() {
     if (!instance) {
-        instance = new Singleton(); 
+        instance = new Singleton();
     }
     return *instance;
 }
 
 void Singleton::delInstance() {
-    if (instance) {        
+    if (instance) {
         delete instance;
         instance = nullptr;
     }
@@ -29,5 +29,3 @@ void Singleton::func() {
 Singleton::~Singleton() {
     std::cout << "Singleton destroyed." << std::endl;
 }
-
-

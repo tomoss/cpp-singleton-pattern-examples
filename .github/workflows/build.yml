@@ -1,59 +1,56 @@
-name: CI
+name: Build Linux + Windows
 
 on:
   push:
-    branches: [ "main"]
+    branches: ["main"]
   pull_request:
-    branches: [ "main"]
+    branches: ["main"]
 
 jobs:
-  build-and-test:
-    name: ${{ matrix.os }} - ${{ matrix.build-type }}
+  build:
+    name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       fail-fast: false
       matrix:
         include:
-          # Linux: Uses the "linux-ninja-debug" preset
-          - os: ubuntu-latest
-            configure-preset: "linux-ninja-debug"
-            build-preset: "linux-ninja-debug"
-            build-type: "Debug"
+          # --------------------------------
+          # Linux — Ninja (Debug)
+          # --------------------------------
+          - name: Linux (Ninja, Debug)
+            os: ubuntu-latest
+            configure-preset: linux-ninja-debug
+            build-preset: linux-ninja-debug
 
-          # Windows: Uses "windows-msvc" (Config) and "windows-msvc-debug" (Build)
-          - os: windows-latest
-            configure-preset: "windows-msvc" 
-            build-preset: "windows-msvc-debug"
-            build-type: "Debug"
+          # --------------------------------
+          # Windows — Ninja + GCC (Debug)
+          # --------------------------------
+          - name: Windows (Ninja + GCC, Debug)
+            os: windows-latest
+            configure-preset: windows-ninja-debug
+            build-preset: windows-ninja-debug
+
+          # --------------------------------
+          # Windows — MSVC (Debug)
+          # --------------------------------
+          - name: Windows (MSVC, Debug)
+            os: windows-latest
+            configure-preset: windows-msvc
+            build-preset: windows-msvc-debug
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    # ----------------------------------------------------------------
-    # 1. Setup Environment (The Correct Way)
-    # ----------------------------------------------------------------
-    # 'lukka/get-cmake' installs both CMake and Ninja.
-    # We pin it to 'latest' to ensure we get a version that supports Presets v3.
-    - name: Setup CMake & Ninja
-      uses: lukka/get-cmake@latest
+      # Install CMake + Ninja
+      - name: Setup CMake & Ninja
+        uses: lukka/get-cmake@latest
 
-    # ----------------------------------------------------------------
-    # 2. Configure
-    # ----------------------------------------------------------------
-    - name: Configure Project
-      run: cmake --preset ${{ matrix.configure-preset }}
+      # Configure
+      - name: Configure
+        run: cmake --preset ${{ matrix.configure-preset }}
 
-    # ----------------------------------------------------------------
-    # 3. Build
-    # ----------------------------------------------------------------
-    - name: Build
-      run: cmake --build --preset ${{ matrix.build-preset }}
-
-    # ----------------------------------------------------------------
-    # 4. Test
-    # ----------------------------------------------------------------
-    - name: Test
-      # '|| true' ensures the CI doesn't fail if you haven't written tests yet.
-      # Remove '|| true' once you actually have tests.
-      run: ctest --preset ${{ matrix.build-preset }} --output-on-failure || true
+      # Build
+      - name: Build
+        run: cmake --build --preset ${{ matrix.build-preset }}

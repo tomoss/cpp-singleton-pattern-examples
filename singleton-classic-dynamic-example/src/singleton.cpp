@@ -5,13 +5,13 @@ Singleton* Singleton::instance = nullptr;
 
 Singleton& Singleton::getInstance() {
     if (!instance) {
-        instance = new Singleton(); 
+        instance = new Singleton();
     }
     return *instance;
 }
 
 void Singleton::delInstance() {
-    if (instance) {        
+    if (instance) {
         delete instance;
         instance = nullptr;
     }
