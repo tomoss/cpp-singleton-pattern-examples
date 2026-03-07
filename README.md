@@ -62,13 +62,19 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 * ⛔ **Obsoleted by C++11** → Local static initialization is the correct modern solution.
 * Reference: [C++ and the Perils of Double-Checked Locking by Scott Meyers and Andrei Alexandrescu](https://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf)
 
-### ⭐ singleton-smart-pointer-example
-* Singleton using a static local smart pointer
-* 🧩 Static local variable
-* 💾 Dynamic memory allocation
-* ⏳ Lazy initialization (instance created on first getInstance() call)
-* 🧼 Automatically destroyed after main() exits
-* 🔒 Thread-safe initialization (C++11+)
+### 6️⃣ singleton-leaky-example
+* 🔳 **"Leaky" Singleton** → A heap-allocated Meyer's Singleton.
+* 🧩 **Static local pointer**
+* 💾 **Dynamic memory allocation**
+* ⏳ **Lazy initialization** → Created only on first call to `getInstance()`
+* 🧹 **No cleanup** → You are intentionally leaking the memory.
+    * When the process ends, the Operating System reclaims the entire memory block anyway. "Leaking" at process exit is technically harmless.
+* 🔒 **Initialization is Thread-safe since C++11**
+    * The local static pointer initialization is still protected by C++11's thread-safe static init guarantee, so the `new` only fires once, safely.
+* ❎ **Avoids Static Initialization Order Fiasco**
+    * Since the destructor is never called, it can't try to access other dead objects during shutdown.
+
+---
 
 ## ⚙️ Prerequisites
 
@@ -149,24 +155,24 @@ cmake --build --preset <preset> --target <target_name>
 
 Example:
 ```bash
-cmake --build --preset linux-ninja-debug --target singleton-meyers-example
+cmake --build --preset linux-ninja-debug --target 02-singleton-meyers-example
 ```
 
 ## 🏃 Running Examples
 
 ### 🖥️ Windows (MSVC)
 ```bash
-build/windows-msvc/singleton-meyers-example/Debug/singleton-meyers-example.exe
+build/windows-msvc/singleton-meyers-example/Debug/02-singleton-meyers-example.exe
 ```
 
 ### 🖥️ Windows (MinGW)
 ```bash
-build/windows-ninja-debug/singleton-meyers-example/singleton-meyers-example.exe
+build/windows-ninja-debug/singleton-meyers-example/02-singleton-meyers-example.exe
 ```
 
 
 ### 🐧 Linux
 ```bash
-./build/linux-ninja-debug/singleton-meyers-example/singleton-meyers-example
+./build/linux-ninja-debug/singleton-meyers-example/02-singleton-meyers-example
 ```
 

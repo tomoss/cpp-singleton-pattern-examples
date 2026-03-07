@@ -4,11 +4,11 @@
 #include <vector>
 
 /*
- * Example with STATIC LOCAL VARIABLE that is a SMART POINTER
+ * Leaky Singleton - Example with static local pointer
  * Dynamic memory allocation
  * Lazy initialization
- * Singleton is created in the first call of getInstance() and destroyed automatically after main() call
- * Thread-safety IS guaranteed (C++11+)
+ * Singleton is created only after first call of getInstance() and never destroyed.
+ * Initialization is Thread-safe - Thread safety is guaranteed since C++11.
  */
 
 int main() {
@@ -18,7 +18,7 @@ int main() {
 
     // Launch 10 threads
     for (int i = 0; i < 10; ++i) {
-        threads.emplace_back([]() { Singleton::getInstance().func(); });
+        threads.emplace_back([]() { Singleton::getInstance().info(); });
     }
 
     for (auto& t : threads) {
