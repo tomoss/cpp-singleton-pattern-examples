@@ -71,7 +71,7 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
     * When the process ends, the Operating System reclaims the entire memory block anyway. "Leaking" at process exit is technically harmless.
 * 🔒 **Initialization is Thread-safe since C++11**
     * The local static pointer initialization is still protected by C++11's thread-safe static init guarantee, so the `new` only fires once, safely.
-* ❎ **Avoids Static Initialization Order Fiasco**
+* ❎ **Avoids Static Initialization/Destruction Order Fiasco**
     * Since the destructor is never called, it can't try to access other dead objects during shutdown.
 
 ---
