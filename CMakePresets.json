@@ -5,7 +5,6 @@
     "minor": 21,
     "patch": 0
   },
-
   "configurePresets": [
     {
       "name": "base-config",
@@ -13,12 +12,11 @@
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_CXX_STANDARD": "11",
+        "CMAKE_CXX_STANDARD": "20",
         "CMAKE_CXX_STANDARD_REQUIRED": "ON",
         "CMAKE_CXX_EXTENSIONS": "OFF"
       }
     },
-
     {
       "name": "linux-ninja-debug",
       "displayName": "Linux (Ninja) - Debug",
@@ -33,7 +31,6 @@
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
-
     {
       "name": "windows-msvc",
       "displayName": "Windows (VS 2022) - Debug",
@@ -45,7 +42,6 @@
       },
       "generator": "Visual Studio 17 2022"
     },
-
     {
       "name": "windows-ninja-debug",
       "displayName": "Windows (Ninja + GCC) - Debug",
@@ -61,7 +57,6 @@
       }
     }
   ],
-
   "buildPresets": [
     {
       "name": "linux-ninja-debug",
