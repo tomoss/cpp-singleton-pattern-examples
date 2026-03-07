@@ -4,6 +4,15 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 
 ## 🔍 Overview
 
+### 1️⃣ singleton-classic-example
+* 🔳 Singleton with a **static member instance**.
+* 🧩 Static member variable
+* 💾 Static memory allocation
+* ⚡ Eager initialization (constructed before `main` starts)
+* 🧼 Automatic destruction after `main` exits
+* 🔒 Initialization is Thread-safe → The static member is initialized before `main` in a single-threaded context, so no construction race is possible.
+* ⚠️ Can suffer from the **Static Initialization Order Fiasco** → If the singleton instance is accessed during the initialization of another static object, it may lead to undefined behavior due to the order of initialization.
+
 ### ⭐ singleton-meyers-example
 * Meyers Singleton — the simplest and safest modern C++ singleton implementation.
 * 🧩 Static local variable
@@ -22,15 +31,6 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 * 🧹 Manual destruction required (via delInstance())
 * ⚠️ Not thread-safe
 * 🔴 Suitable only for single-threaded
-
-### ⭐ singleton-classic-static-example
-* Singleton with a static member instance — created eagerly at program startup.
-* 🧩 Static member variable
-* 💾 Static memory allocation
-* ⚡ Eager initialization (constructed before main() starts)
-* 🧼 Automatic destruction after main() exits
-* ⚠️ Not thread-safe
-* 🔴 Can suffer from the static initialization order fiasco
 
 ### ⭐ singleton-classic-dynamic-example
 * Singleton with a static member pointer — dynamically allocated on first use.

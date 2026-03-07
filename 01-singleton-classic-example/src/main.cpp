@@ -2,11 +2,12 @@
 #include <iostream>
 
 /*
- * Example with STATIC MEMBER VARIABLE
+ * Example with static member variable
  * Static memory allocation
  * Eager initialization
  * Singleton is created before main() and destroyed after main() call
- * Thread-safety not guaranteed
+ * Initialization is thread-safe - The static member is initialized before main() in a single-threaded context, so no construction race is possible.
+ * The Static Initialization Order Fiasco - If the singleton instance is accessed during the initialization of another static object.
  */
 
 int main() {
