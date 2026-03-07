@@ -7,7 +7,7 @@ public:
 
     static Singleton& getInstance();
     static void delInstance();
-    void func();
+    void info();
 
 private:
     Singleton();
