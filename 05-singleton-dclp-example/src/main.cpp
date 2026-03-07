@@ -22,7 +22,7 @@ int main() {
 
     // Launch 10 threads
     for (int i = 0; i < 10; ++i) {
-        threads.emplace_back([]() { Singleton::getInstance().func(); });
+        threads.emplace_back([]() { Singleton::getInstance().info(); });
     }
 
     for (auto& t : threads) {

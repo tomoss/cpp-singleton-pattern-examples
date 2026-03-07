@@ -1,5 +1,6 @@
 #include "../inc/singleton.h"
 #include <iostream>
+#include <thread>
 
 /* it's private to this file */
 static Singleton* instance = nullptr;
@@ -22,8 +23,8 @@ Singleton::Singleton() {
     std::cout << "Singleton created." << std::endl;
 }
 
-void Singleton::func() {
-    std::cout << "Doing something..." << std::endl;
+void Singleton::info() {
+    std::cout << "Current instance address: " << this << " | Current thread ID: " << std::this_thread::get_id() << '\n';
 }
 
 Singleton::~Singleton() {

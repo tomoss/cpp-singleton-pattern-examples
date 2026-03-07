@@ -1,16 +1,15 @@
 #include "singleton.h"
 #include <iostream>
+#include <syncstream>
+#include <thread>
 
 Singleton* Singleton::instance = nullptr;
 std::mutex Singleton::mtx;
 
-
 Singleton& Singleton::getInstance() {
-    if (!instance)
-    {
+    if (!instance) {
         std::lock_guard<std::mutex> lock(mtx);
-        if (!instance)
-        {
+        if (!instance) {
             instance = new Singleton();
         }
     }
@@ -18,11 +17,9 @@ Singleton& Singleton::getInstance() {
 }
 
 void Singleton::delInstance() {
-    if (instance)
-    {
+    if (instance) {
         std::lock_guard<std::mutex> lock(mtx);
-        if (instance)
-        {
+        if (instance) {
             delete instance;
             instance = nullptr;
         }
@@ -33,8 +30,8 @@ Singleton::Singleton() {
     std::cout << "Singleton created." << std::endl;
 }
 
-void Singleton::func() {
-    std::cout << "Doing something..." << std::endl;
+void Singleton::info() {
+    std::osyncstream(std::cout) << "Current instance address: " << this << " | Current thread ID: " << std::this_thread::get_id() << '\n';
 }
 
 Singleton::~Singleton() {
