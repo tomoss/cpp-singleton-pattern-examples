@@ -99,9 +99,10 @@ Before building, ensure you have the following installed:
 
 ### 🐧 Linux (Preset: linux-ninja-debug)
 
-* **C++ Compiler: GCC or Clang (supporting C++11)**
+* **C++ Compiler: GCC 10+ or Clang 10+ (supporting C++20)**
 * **Generator: Ninja**
 * **Install Command (Ubuntu/Debian):** ```bash sudo apt update && sudo apt install build-essential ninja-build cmake ```
+* **Note:** GCC 10+ is available by default on Ubuntu 22.04+. On older distros, install via `sudo apt install gcc-10 g++-10`.
 
 ## 🏗️ Build Instructions
 
