@@ -4,7 +4,7 @@
 #include <vector>
 
 /*
- * Meyer’s Singleton - Example with STATIC LOCAL VARIABLE
+ * Meyer’s Singleton - Example with static local variable
  * Static memory allocation
  * Lazy initialization
  * Singleton is created only after first call of getInstance() and destroyed after main() call
@@ -20,7 +20,7 @@ int main() {
 
     // Launch 10 threads
     for (int i = 0; i < 10; ++i) {
-        threads.emplace_back([]() { Singleton::getInstance().func(); });
+        threads.emplace_back([]() { Singleton::getInstance().info(); });
     }
 
     for (auto& t : threads) {

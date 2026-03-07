@@ -10,7 +10,7 @@ public:
         return instance;
     }
 
-    void func();
+    void info();
 
 private:
     Singleton();

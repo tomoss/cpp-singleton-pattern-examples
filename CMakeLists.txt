@@ -6,8 +6,8 @@ project(cpp-singleton-pattern-examples
 )
 
 add_subdirectory(01-singleton-classic-example)
+add_subdirectory(02-singleton-meyers-example)
 add_subdirectory(singleton-cherno-example)
-add_subdirectory(singleton-meyers-example)
 add_subdirectory(singleton-classic-dynamic-example)
 add_subdirectory(singleton-dclp-example)
 add_subdirectory(singleton-smart-pointer-example)
