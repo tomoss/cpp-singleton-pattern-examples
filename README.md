@@ -1,6 +1,6 @@
 # Singleton pattern examples in C++
 
-A collection of minimal, self-contained C++ examples demonstrating multiple ways to implement the Singleton design pattern. The repository includes modern, thread-safe techniques (Meyers Singleton) and legacy aproaches (Raw Pointers, Double-Checked Locking) for comparison.
+A collection of minimal, self-contained C++ examples demonstrating multiple ways to implement the Singleton design pattern. The repository includes modern, thread-safe techniques (Meyer's Singleton) and legacy aproaches (Double-Checked Locking) for comparison.
 
 ## 🔍 Overview
 
