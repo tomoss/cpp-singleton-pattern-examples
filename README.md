@@ -101,6 +101,8 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 * ⚠️ **Static Destruction Order Fiasco:**
     * If a static object in another translation unit accesses the singleton during its own destruction, the singleton may already have been destroyed.
 
+---
+
 ### 2️⃣ singleton-meyers-example
 
 🔳 **Meyer's Singleton** → The simplest and safest modern C++ singleton implementation.
@@ -112,6 +114,8 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
     * A function-local static variable is initialized exactly once, even in a multi-threaded environment.
 * ✅ **Fixes SIOF:** Avoids the classic static initialization order problem because the object is created on first use.
 * ⚠️ **Still vulnerable to Static Destruction Order Fiasco**
+
+---
 
 ### 3️⃣ singleton-classic-dynamic-example
 
@@ -125,6 +129,7 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 * ⚠️ **Manual lifetime management is error-prone**
     * Because the singleton is destroyed explicitly via `delInstance()`, the program must ensure no code still uses the old instance after deletion.
 
+---
 
 ### 4️⃣ singleton-cherno-example
 
@@ -137,6 +142,8 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 * ⚠️ **Thread safety:** Not guaranteed, same as [singleton-classic-dynamic-example](#3️⃣-singleton-classic-dynamic-example)
 * ⚠️ **Manual lifetime management is error-prone** → Same as [singleton-classic-dynamic-example](#3️⃣-singleton-classic-dynamic-example)
 
+---
+
 ### 5️⃣ singleton-dclp-example
 
 🔳 **Singleton with Double-Checked Locking Pattern (DCLP)** → Classic, but unsafe lazy-initialization pattern.
@@ -148,6 +155,8 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
 * ❌ **DCLP is unreliable** → Multiple threads may observe a partially constructed object.
 * ⛔ **Largely obsolete since C++11** → Thread-safe function-local static initialization is the simpler and preferred modern solution.
 * 📖 **Reference:** [C++ and the Perils of Double-Checked Locking by Scott Meyers and Andrei Alexandrescu](https://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf)
+
+---
 
 ### 6️⃣ singleton-leaky-example
 
@@ -164,81 +173,55 @@ A collection of minimal, self-contained C++ examples demonstrating multiple ways
     * Because the object is created on first use, it avoids SIOF
     * Because it is never destroyed, it avoids static destruction order issues
 * ⚠️ **Trade-off:** intentionally leaks memory by design
+
 ---
 
 ## ⚙️ Prerequisites
 
 Before building, ensure you have the following installed:
 
-### Common Requirements (All Platforms)
+* CMake (v3.20 or newer required for Presets)
+* C++ compiler supporting C++20 (required for `syncstream`)
 
-* **CMake** (v3.20 or newer required for Presets)
-* **Ninja** (Used on Linux and Windows (GCC))
+#### 🖥️ Windows - Visual Studio MSVC (Preset: `windows-msvc`)
 
-### 🖥️ Windows - Visual Studio MSVC (Preset: windows-msvc)
+* Visual Studio 2022
+* Workload Required: Desktop development with C++
+* Note: The preset uses the Visual Studio 17 2022 generator.
 
-* **Visual Studio 2022**
-* **Workload Required: Desktop development with C++**
-* **Note: The preset uses the Visual Studio 17 2022 generator.**
+#### 🖥️ Windows - MinGW (Preset: `windows-ninja-debug`)
 
-### 🖥️ Windows - MinGW (Preset: windows-ninja-debug)
+* MinGW-w64 Toolchain
+* Generator: Ninja
 
-* **MinGW-w64 Toolchain**
-* **Generator: Ninja**
-* **Configuration: The bin folder of your MinGW installation (e.g., C:\msys64\mingw64\bin) must be in your system PATH environment variable.**
+#### 🐧 Linux (Preset: `linux-ninja-debug`)
 
-### 🐧 Linux (Preset: linux-ninja-debug)
+* C++ Compiler (GCC/Clang)
+* Generator: Ninja
 
-* **C++ Compiler: GCC 10+ or Clang 10+ (supporting C++20)**
-* **Generator: Ninja**
-* **Install Command (Ubuntu/Debian):** ```bash sudo apt update && sudo apt install build-essential ninja-build cmake ```
-* **Note:** GCC 10+ is available by default on Ubuntu 22.04+. On older distros, install via `sudo apt install gcc-10 g++-10`.
+---
 
 ## 🏗️ Build Instructions
 
 The commands below are executed from the **root of the repository**.
 
-### 1. Configure Workspace (Run Once)
+#### 1. Configure Workspace (run once)
 
-#### 🖥️ Windows (MSVC)
+* 🖥️ Windows (MSVC) → `cmake --preset windows-msvc`
 
-```bash
-cmake --preset windows-msvc
-```
+* 🖥️ Windows (MinGW) → `cmake --preset windows-ninja-debug`
 
-#### 🖥️ Windows (MinGW - Debug)
+* 🐧 Linux → `cmake --preset linux-ninja-debug`
 
-```bash
-cmake --preset windows-ninja-debug
-```
+#### Build All (debug)
 
-#### 🐧 Linux (Ninja - Debug)
+* 🖥️ Windows (MSVC) → `cmake --build --preset windows-msvc-debug`
 
-```bash
-cmake --preset linux-ninja-debug
-```
+* 🖥️ Windows (MinGW - Debug) → `cmake --build --preset windows-ninja-debug`
 
-### Build All (Debug)
+* 🐧 Linux (Ninja - Debug) → `cmake --build --preset linux-ninja-debug`
 
-#### 🖥️ Windows (MSVC)
-
-```bash
-cmake --build --preset windows-msvc-debug
-```
-
-#### 🖥️ Windows (MinGW - Debug)
-
-```bash
-cmake --build --preset windows-ninja-debug
-```
-
-#### 🐧 Linux (Ninja - Debug)
-
-```bash
-cmake --build --preset linux-ninja-debug
-```
-
-### Build Specific Project
+#### Build Specific Project
 
 ```bash
 cmake --build --preset <preset> --target <target_name>
@@ -249,20 +232,22 @@ Example:
 cmake --build --preset linux-ninja-debug --target 02-singleton-meyers-example
 ```
 
+---
+
 ## 🏃 Running Examples
 
-### 🖥️ Windows (MSVC)
+#### 🖥️ Windows (MSVC)
 ```bash
 build/windows-msvc/singleton-meyers-example/Debug/02-singleton-meyers-example.exe
 ```
 
-### 🖥️ Windows (MinGW)
+#### 🖥️ Windows (MinGW)
 ```bash
 build/windows-ninja-debug/singleton-meyers-example/02-singleton-meyers-example.exe
 ```
 
 
-### 🐧 Linux
+#### 🐧 Linux
 ```bash
 ./build/linux-ninja-debug/singleton-meyers-example/02-singleton-meyers-example
 ```
