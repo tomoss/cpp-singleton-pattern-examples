@@ -1,79 +1,169 @@
-# Singleton pattern examples in C++
+# Singleton Pattern Examples in C++
 
-A collection of minimal, self-contained C++ examples demonstrating multiple ways to implement the Singleton design pattern. The repository includes modern, thread-safe techniques (Meyer's Singleton) and legacy aproaches (Double-Checked Locking) for comparison.
+A collection of minimal, self-contained C++ examples demonstrating multiple ways to implement the Singleton design pattern. The repository includes modern, thread-safe techniques (Meyer's Singleton) and legacy approaches (Double-Checked Locking) for comparison.
 
 ## 🔍 Overview
 
+<table>
+  <thead>
+    <tr>
+      <th>Example</th>
+      <th>Initialization</th>
+      <th>Storage duration</th>
+      <th>Cleanup</th>
+      <th>Thread-safe Initialization</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>singleton-classic-example</code></td>
+      <td>Eager</td>
+      <td>Static</td>
+      <td>Automatic</td>
+      <td>Yes</td>
+      <td>
+      Can suffer from SIOF and static destruction order issues.
+      </td>
+    </tr>
+    <tr>
+      <td><code>singleton-meyers-example</code></td>
+      <td>Lazy</td>
+      <td>Static</td>
+      <td>Automatic</td>
+      <td>Yes (since C++11)</td>
+      <td>
+        Avoids classic SIOF because the object is created on first use.<br><br>
+        May still suffer from static destruction order issues during program shutdown.
+      </td>
+    </tr>
+    <tr>
+      <td><code>singleton-classic-dynamic-example</code></td>
+      <td>Lazy</td>
+      <td>Dynamic</td>
+      <td>Manual</td>
+      <td>No</td>
+      <td>
+        Races may occur if multiple threads call <code>getInstance()</code> or
+        <code>delInstance()</code> concurrently.<br><br>
+        Manual lifetime management is error-prone.
+      </td>
+    </tr>
+    <tr>
+      <td><code>singleton-cherno-example</code></td>
+      <td>Lazy</td>
+      <td>Dynamic</td>
+      <td>Manual</td>
+      <td>No</td>
+      <td>
+        Similar problems to <code>singleton-classic-dynamic-example</code>: manual cleanup,
+        unsafe lifetime management and no thread safety.
+      </td>
+    </tr>
+    <tr>
+      <td><code>singleton-dclp-example</code></td>
+      <td>Lazy</td>
+      <td>Dynamic</td>
+      <td>Manual</td>
+      <td>No</td>
+      <td>
+        Classic Double-Checked Locking Pattern (DCLP).<br><br>
+        Historically unsafe because of data races and reordering issues.<br><br>
+        Obsolete in modern C++.
+      </td>
+    </tr>
+    <tr>
+      <td><code>singleton-leaky-example</code></td>
+      <td>Lazy</td>
+      <td>Dynamic</td>
+      <td>None</td>
+      <td>Yes (since C++11)</td>
+      <td>
+        Intentionally leaks memory to avoid shutdown-order problems.<br><br>
+        Useful when destruction order is more dangerous than not deleting the instance.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
 ### 1️⃣ singleton-classic-example
 
-* 🔳 **Singleton with a static member instance.**
-* 🧩 **Static member variable**
-* 💾 **Static memory allocation**
-* ⚡ **Eager initialization** → Created before `main` starts
-* 🧼 **Automatic cleanup** → Destroyed after `main` exits
-* 🔒 **Initialization is Thread-safe**
-    * The static member is initialized before `main` in a single-threaded context, so no construction race is possible.
-* ⚠️ **Static Initialization Order Fiasco**
-    * Can suffer from SIOF If the singleton instance is accessed during the initialization of another static object, it may lead to UB due to the order of initialization.
-* ⚠️ **Static Destruction Order Fiasco**
-    * A symmetric problem, If one static object's destructor calls another static that has been destroyed, it results in UB.
+🔳 **Singleton with a static member instance.**
+* 🧩 **Variable**: Static member variable
+* 💾 **Storage**: Static storage duration
+* ⚡ **Initialization:** Eager → Created before `main()` starts
+* 🧼 **Cleanup:** Automatic → Destroyed after `main()` exits
+* 🔒 **Thread safety:** Construction is effectively safe because initialization happens before `main()` in a single-threaded context
+* ⚠️ **Static Initialization Order Fiasco ([SIOF](https://en.cppreference.com/w/cpp/language/siof.html)):**
+    * If a static object in another translation unit accesses the singleton during its own initialization, the singleton may not be constructed yet.
+* ⚠️ **Static Destruction Order Fiasco:**
+    * If a static object in another translation unit accesses the singleton during its own destruction, the singleton may already have been destroyed.
 
 ### 2️⃣ singleton-meyers-example
 
-* 🔳 **Meyer's Singleton** → The simplest and safest modern C++ singleton implementation.
-* 🧩 **Static local variable**
-* 💾 **Static memory allocation**
-* ⏳ **Lazy initialization** → Created only on first call to `getInstance()`
-* 🧼 **Automatic cleanup** → Destroyed after `main` exits
-* 🔒 **Initialization is Thread-safe since C++11**
+🔳 **Meyer's Singleton** → The simplest and safest modern C++ singleton implementation.
+* 🧩 **Variable**: Static local variable
+* 💾 **Storage**: Static storage duration
+* ⏳ **Initialization:** Lazy → Created only on first call to `getInstance()`
+* 🧼 **Cleanup:** Automatic → Destroyed after `main()` exits
+* 🔒 **Thread safety:** Initialization is thread-safe since C++11
     * A function-local static variable is initialized exactly once, even in a multi-threaded environment.
-* ⚠️ The Meyer's Singleton fixes **Static Initialization Order Fiasco**, but can suffer from **Static Destruction Order Fiasco**.
+* ✅ **Fixes SIOF:** Avoids the classic static initialization order problem because the object is created on first use.
+* ⚠️ **Still vulnerable to Static Destruction Order Fiasco**
 
 ### 3️⃣ singleton-classic-dynamic-example
-* **Singleton with a static member pointer** → Dynamically allocated on first use.
-* 🧩 **Static member pointer**
-* 💾 **Dynamic memory allocation**
-* ⏳ **Lazy initialization** → Created only on first call to `getInstance()`
-* 🧹 **Manual cleanup** → Requires manual destruction via `delInstance()`
-* ⚠️ **Not Thread-safe**
+
+🔳 **Singleton with a static member pointer** → Dynamically allocated on first use.
+* 🧩 **Variable**: Static member pointer
+* 💾 **Storage**: Dynamic storage duration
+* ⏳ **Initialization:** Lazy → Created only on first call to `getInstance()`
+* 🧹 **Cleanup:** Manual → Requires manual destruction via `delInstance()`
+* ⚠️ **Thread safety:** Not guaranteed
     * Two threads could call `delInstance()` simultaneously, or one calls `getInstance()` while another calls `delInstance()`, leading to a race on the pointer.
-* ⚠️ **Static Destruction Order Fiasco**
-    * If another static's destructor calls `getInstance()` after `delInstance()` has run, you're dereferencing a deleted pointer, right back to UB.
-* ❗ Not recommended for multi-threaded applications.
+* ⚠️ **Manual lifetime management is error-prone**
+    * Because the singleton is destroyed explicitly via `delInstance()`, the program must ensure no code still uses the old instance after deletion.
 
 
 ### 4️⃣ singleton-cherno-example
-* **Cherno-style Singleton** → [Why I don't like Singletons - Youtube](https://youtu.be/IMZMLvIwa-k?si=Q__9r--DOre6jahY)
-* 🧩 **Static global variable**
-* 💾 **Dynamic memory allocation**
-* ⏳ **Lazy initialization** → Created only on first call to `getInstance()`
-* 🧹 **Manual cleanup** → Requires manual destruction via `delInstance()`
-* ⚠️ **Not Thread-safe** → Same as [singleton-classic-dynamic-example](#3️⃣-singleton-classic-dynamic-example)
-* ❗ Not recommended for multi-threaded applications.
+
+🔳 **Cherno-style Singleton** — inspired by [Why I don't like Singletons - Cherno](https://youtu.be/IMZMLvIwa-k?si=Q__9r--DOre6jahY)
+
+* 🧩 **Variable**: Static global pointer
+* 💾 **Storage**: Dynamic storage duration
+* ⏳ **Initialization:** Lazy → Created only on first call to `getInstance()`
+* 🧹 **Cleanup:** Manual → Requires manual destruction via `delInstance()`
+* ⚠️ **Thread safety:** Not guaranteed, same as [singleton-classic-dynamic-example](#3️⃣-singleton-classic-dynamic-example)
+* ⚠️ **Manual lifetime management is error-prone** → Same as [singleton-classic-dynamic-example](#3️⃣-singleton-classic-dynamic-example)
 
 ### 5️⃣ singleton-dclp-example
-* **Singleton with Double-Checked Locking Pattern (DCLP)** → Classic but unsafe lazy-initialization pattern.
-* 🧩 **Static member pointer**
-* 💾 **Dynamic memory allocation**
-* ⏳ **Lazy initialization** → Created only on first call to `getInstance()`
-* 🧹 **Manual cleanup** → Requires manual destruction via `delInstance()`
-* ⚠️ **Not Thread-safe** → Suffers from data races and reordering issues.
+
+🔳 **Singleton with Double-Checked Locking Pattern (DCLP)** → Classic, but unsafe lazy-initialization pattern.
+* 🧩 **Variable**: Static member pointer
+* 💾 **Storage**: Dynamic storage duration
+* ⏳ **Initialization:** Lazy → Created only on first call to `getInstance()`
+* 🧹 **Cleanup:** Manual → Requires manual destruction via `delInstance()`
+* ⚠️ **Thread safety:** Not guaranteed, suffers from data races and reordering issues.
 * ❌ **DCLP is unreliable** → Multiple threads may observe a partially constructed object.
-* ⛔ **Obsoleted by C++11** → Local static initialization is the correct modern solution.
-* Reference: [C++ and the Perils of Double-Checked Locking by Scott Meyers and Andrei Alexandrescu](https://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf)
+* ⛔ **Largely obsolete since C++11** → Thread-safe function-local static initialization is the simpler and preferred modern solution.
+* 📖 **Reference:** [C++ and the Perils of Double-Checked Locking by Scott Meyers and Andrei Alexandrescu](https://www.aristeia.com/Papers/DDJ_Jul_Aug_2004_revised.pdf)
 
 ### 6️⃣ singleton-leaky-example
-* 🔳 **"Leaky" Singleton** → A heap-allocated Meyer's Singleton.
-* 🧩 **Static local pointer**
-* 💾 **Dynamic memory allocation**
-* ⏳ **Lazy initialization** → Created only on first call to `getInstance()`
-* 🧹 **No cleanup** → You are intentionally leaking the memory.
-    * When the process ends, the Operating System reclaims the entire memory block anyway. "Leaking" at process exit is technically harmless.
-* 🔒 **Initialization is Thread-safe since C++11**
-    * The local static pointer initialization is still protected by C++11's thread-safe static init guarantee, so the `new` only fires once, safely.
-* ❎ **Avoids Static Initialization/Destruction Order Fiasco**
-    * Since the destructor is never called, it can't try to access other dead objects during shutdown.
 
+🔳 **"Leaky" Singleton** → A heap-allocated singleton initialized through a function-local static pointer.
+* 🧩 **Variable**: Static local pointer
+* 💾 **Storage**: Dynamic storage duration
+* ⏳ **Initialization:** Lazy → Created only on first call to `getInstance()`
+* 🧹 **Cleanup:** No cleanup, the object is intentionally never deleted.
+    * The memory is intentionally left allocated until process termination.
+    * In practice, the operating system reclaims the memory when the process exits.
+* 🔒 **Thread safety:** Initialization is thread-safe since C++11
+    * The local static pointer initialization is still protected by C++11's thread-safe static init guarantee, so the `new` only fires once, safely.
+* ✅ **Avoids both construction and destruction order problems**
+    * Because the object is created on first use, it avoids SIOF
+    * Because it is never destroyed, it avoids static destruction order issues
+* ⚠️ **Trade-off:** intentionally leaks memory by design
 ---
 
 ## ⚙️ Prerequisites
@@ -176,4 +266,3 @@ build/windows-ninja-debug/singleton-meyers-example/02-singleton-meyers-example.e
 ```bash
 ./build/linux-ninja-debug/singleton-meyers-example/02-singleton-meyers-example
 ```
-
