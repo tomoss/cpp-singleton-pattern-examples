@@ -202,52 +202,46 @@ Before building, ensure you have the following installed:
 ---
 
 ## 🏗️ Build Instructions
-
 The commands below are executed from the **root of the repository**.
-
 #### 1. Configure Workspace (run once)
-
 * 🖥️ Windows (MSVC) → `cmake --preset windows-msvc`
-
-* 🖥️ Windows (MinGW) → `cmake --preset windows-ninja-debug`
-
-* 🐧 Linux → `cmake --preset linux-ninja-debug`
-
+* 🖥️ Windows (GCC, Ninja) → `cmake --preset windows-gcc-debug`
+* 🖥️ Windows (Clang, Ninja) → `cmake --preset windows-clang-debug`
+* 🐧 Linux (GCC) → `cmake --preset linux-gcc-debug`
+* 🐧 Linux (Clang) → `cmake --preset linux-clang-debug`
 #### Build All (debug)
-
 * 🖥️ Windows (MSVC) → `cmake --build --preset windows-msvc-debug`
-
-* 🖥️ Windows (MinGW - Debug) → `cmake --build --preset windows-ninja-debug`
-
-* 🐧 Linux (Ninja - Debug) → `cmake --build --preset linux-ninja-debug`
-
+* 🖥️ Windows (GCC, Ninja) → `cmake --build --preset windows-gcc-debug`
+* 🖥️ Windows (Clang, Ninja) → `cmake --build --preset windows-clang-debug`
+* 🐧 Linux (GCC) → `cmake --build --preset linux-gcc-debug`
+* 🐧 Linux (Clang) → `cmake --build --preset linux-clang-debug`
 #### Build Specific Project
-
 ```bash
 cmake --build --preset <preset> --target <target_name>
 ```
-
 Example:
 ```bash
-cmake --build --preset linux-ninja-debug --target 02-singleton-meyers-example
+cmake --build --preset linux-gcc-debug --target 02-singleton-meyers-example
 ```
-
 ---
-
 ## 🏃 Running Examples
-
 #### 🖥️ Windows (MSVC)
 ```bash
-build/windows-msvc/singleton-meyers-example/Debug/02-singleton-meyers-example.exe
+build/windows-msvc/02-singleton-meyers-example/Debug/02-singleton-meyers-example.exe
 ```
-
-#### 🖥️ Windows (MinGW)
+#### 🖥️ Windows (GCC, Ninja)
 ```bash
-build/windows-ninja-debug/singleton-meyers-example/02-singleton-meyers-example.exe
+build/windows-gcc-debug/02-singleton-meyers-example/02-singleton-meyers-example.exe
 ```
-
-
-#### 🐧 Linux
+#### 🖥️ Windows (Clang, Ninja)
 ```bash
-./build/linux-ninja-debug/singleton-meyers-example/02-singleton-meyers-example
+build/windows-clang-debug/02-singleton-meyers-example/02-singleton-meyers-example.exe
+```
+#### 🐧 Linux (GCC)
+```bash
+./build/linux-gcc-debug/02-singleton-meyers-example/02-singleton-meyers-example
+```
+#### 🐧 Linux (Clang)
+```bash
+./build/linux-clang-debug/02-singleton-meyers-example/02-singleton-meyers-example
 ```
