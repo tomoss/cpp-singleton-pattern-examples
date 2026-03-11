@@ -2,35 +2,46 @@ name: Build Linux + Windows
 
 on:
   push:
-    branches: ["main"]
+    branches: [ main ]
   pull_request:
-    branches: ["main"]
+    branches: [ main ]
 
 jobs:
   build:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
-
     strategy:
       fail-fast: false
       matrix:
         include:
           # --------------------------------
-          # Linux — Ninja (Debug)
+          # Linux — GCC (Debug)
           # --------------------------------
-          - name: Linux (Ninja, Debug)
+          - name: Linux (GCC, Ninja, Debug)
             os: ubuntu-latest
-            configure-preset: linux-ninja-debug
-            build-preset: linux-ninja-debug
-
+            configure-preset: linux-gcc-debug
+            build-preset: linux-gcc-debug
           # --------------------------------
-          # Windows — Ninja + GCC (Debug)
+          # Linux — Clang (Debug)
           # --------------------------------
-          - name: Windows (Ninja + GCC, Debug)
+          - name: Linux (Clang, Ninja, Debug)
+            os: ubuntu-latest
+            configure-preset: linux-clang-debug
+            build-preset: linux-clang-debug
+          # --------------------------------
+          # Windows — GCC + Ninja (Debug)
+          # --------------------------------
+          - name: Windows (GCC, Ninja, Debug)
             os: windows-latest
-            configure-preset: windows-ninja-debug
-            build-preset: windows-ninja-debug
-
+            configure-preset: windows-gcc-debug
+            build-preset: windows-gcc-debug
+          # --------------------------------
+          # Windows — Clang + Ninja (Debug)
+          # --------------------------------
+          - name: Windows (Clang, Ninja, Debug)
+            os: windows-latest
+            configure-preset: windows-clang-debug
+            build-preset: windows-clang-debug
           # --------------------------------
           # Windows — MSVC (Debug)
           # --------------------------------
@@ -43,14 +54,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Install CMake + Ninja
       - name: Setup CMake & Ninja
         uses: lukka/get-cmake@latest
 
-      # Configure
       - name: Configure
         run: cmake --preset ${{ matrix.configure-preset }}
 
-      # Build
       - name: Build
         run: cmake --build --preset ${{ matrix.build-preset }}

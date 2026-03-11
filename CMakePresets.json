@@ -18,9 +18,29 @@
       }
     },
     {
-      "name": "linux-ninja-debug",
-      "displayName": "Linux (Ninja) - Debug",
+      "name": "base-gcc",
+      "hidden": true,
       "inherits": "base-config",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wsign-conversion"
+      }
+    },
+    {
+      "name": "base-clang",
+      "hidden": true,
+      "inherits": "base-config",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wsign-conversion"
+      }
+    },
+    {
+      "name": "linux-gcc-debug",
+      "displayName": "Linux (GCC, Ninja) - Debug",
+      "inherits": "base-gcc",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -28,13 +48,26 @@
       },
       "generator": "Ninja",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wsign-conversion"
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux-clang-debug",
+      "displayName": "Linux (Clang, Ninja) - Debug",
+      "inherits": "base-clang",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
       "name": "windows-msvc",
-      "displayName": "Windows (VS 2022) - Debug",
+      "displayName": "Windows (MSVC, VS 2022) - Debug",
       "inherits": "base-config",
       "condition": {
         "type": "equals",
@@ -47,9 +80,9 @@
       }
     },
     {
-      "name": "windows-ninja-debug",
-      "displayName": "Windows (Ninja + GCC) - Debug",
-      "inherits": "base-config",
+      "name": "windows-gcc-debug",
+      "displayName": "Windows (GCC, Ninja) - Debug",
+      "inherits": "base-gcc",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -57,15 +90,33 @@
       },
       "generator": "Ninja",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wsign-conversion"
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "windows-clang-debug",
+      "displayName": "Windows (Clang, Ninja) - Debug",
+      "inherits": "base-clang",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
       }
     }
   ],
   "buildPresets": [
     {
-      "name": "linux-ninja-debug",
-      "configurePreset": "linux-ninja-debug",
+      "name": "linux-gcc-debug",
+      "configurePreset": "linux-gcc-debug",
+      "jobs": 0
+    },
+    {
+      "name": "linux-clang-debug",
+      "configurePreset": "linux-clang-debug",
       "jobs": 0
     },
     {
@@ -75,8 +126,13 @@
       "jobs": 0
     },
     {
-      "name": "windows-ninja-debug",
-      "configurePreset": "windows-ninja-debug",
+      "name": "windows-gcc-debug",
+      "configurePreset": "windows-gcc-debug",
+      "jobs": 0
+    },
+    {
+      "name": "windows-clang-debug",
+      "configurePreset": "windows-clang-debug",
       "jobs": 0
     }
   ]
