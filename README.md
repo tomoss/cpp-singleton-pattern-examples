@@ -183,18 +183,18 @@ Before building, ensure you have the following installed:
 * CMake (v3.20 or newer required for Presets)
 * C++ compiler supporting C++20 (required for `syncstream`)
 
-#### 🖥️ Windows - Visual Studio MSVC (Preset: `windows-msvc`)
+#### 🖥️ Windows - Visual Studio MSVC
 
 * Visual Studio 2022
 * Workload Required: Desktop development with C++
 * Note: The preset uses the Visual Studio 17 2022 generator.
 
-#### 🖥️ Windows - MinGW (Preset: `windows-ninja-debug`)
+#### 🖥️ Windows - MinGW
 
 * MinGW-w64 Toolchain
 * Generator: Ninja
 
-#### 🐧 Linux (Preset: `linux-ninja-debug`)
+#### 🐧 Linux
 
 * C++ Compiler (GCC/Clang)
 * Generator: Ninja
